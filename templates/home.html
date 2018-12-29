@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <title>Simple PhoneNumbers Manager</title>
+    <style>
+        .newspaper {
+            -webkit-column-count: 3; /* Chrome, Safari, Opera */
+            -moz-column-count: 3; /* Firefox */
+            column-count: 3;
+        }
+        .head {
+            text-align: center;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="head">
+        <h1>简易号码管理系统</h1>
+    </div>
+    <div class="newspaper">
+        <form method="POST">
+            {{ cform.hidden_tag() }}
+            <fieldset>
+                <legend>新建号码信息</legend>
+                <br>
+                {{ cform.number.label }}<br>
+                {{ cform.number }}<br>
+                {{ cform.name.label }}<br>
+                {{ cform.name }}<br>
+                {{ cform.package.label }}<br>
+                {{ cform.package }}<br><br><br>
+                {{ cform.create }}<br>
+            </fieldset>
+        </form>
+        <form  method="POST">
+            {{ uform.hidden_tag() }}
+            <fieldset>
+                <legend>更新套餐信息</legend>
+                <br><br>
+                {{ uform.number.label }}<br>
+                {{ uform.number }}<br><br>
+                {{ uform.package.label }}<br>
+                {{ uform.package }}<br><br><br>
+                {{ uform.update }}
+            </fieldset>
+        </form>
+        <form method="POST">
+            {{ dform.hidden_tag() }}
+            <fieldset>
+                <legend>删除号码信息</legend>
+                {{ dform.number.label }}<br>
+                {{ dform.number }}<br><br>
+                {{ dform.delete }}
+            </fieldset>
+        </form>
+        <form method="POST">
+            <fieldset>
+            {{ reset.hidden_tag() }}
+            <b>重置数据: </b> {{ reset.reset }}
+                </fieldset>
+        </form>
+                <form method="POST">
+            <fieldset>
+            {{ spider.hidden_tag() }}
+            <b>爬取数据: </b> {{ spider.spider }}
+                </fieldset>
+        </form>
+    </div>
+    <br>
+    <br>
+    <b>号码清单:</b><br><br>
+    {% for i in data %}
+        号码 = {{ i["number"] }}<br>
+        姓名 = {{ i["name"] }} <br>
+        套餐类型 = {{ i["package"] }}<br><br>
+    {% endfor %}
+  </body>
+</html>
