@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Simple PhoneNumbers Manager</title>
+    <title>号码管理系统</title>
     <style>
         .newspaper {
             -webkit-column-count: 3; /* Chrome, Safari, Opera */
@@ -55,13 +55,13 @@
         <form method="POST">
             <fieldset>
             {{ reset.hidden_tag() }}
-            <b>重置数据: </b> {{ reset.reset }}
+            <b>重置所有数据: </b> {{ reset.reset }}
                 </fieldset>
         </form>
                 <form method="POST">
             <fieldset>
             {{ spider.hidden_tag() }}
-            <b>爬取数据: </b> {{ spider.spider }}
+            <b>爬取几条数据?: </b> {{ spider.times }}{{ spider.spider }}
                 </fieldset>
         </form>
     </div>

@@ -20,7 +20,7 @@ client = MongoClient('localhost:27017')
 db = client.NumManager
 
 
-def createTask(form):
+def createNum(form):
     number = form.number.data
     package = form.package.data
     name = form.name.data
@@ -28,11 +28,11 @@ def createTask(form):
     db.tasks.insert_one(task)
     return redirect('/')
 
-def deleteTask(form):
+def deleteNum(form):
     number = form.number.data
     db.tasks.delete_many({'number':number})
     return redirect('/')
-def updateTask(form):
+def updateNum(form):
     number = form.number.data
     package = form.package.data
     db.tasks.update_one(
@@ -43,7 +43,7 @@ def updateTask(form):
     )
     return redirect('/')
 
-def resetTask(form):
+def resetNum(form):
     db.tasks.drop()
     return redirect('/')
 def random_name(size=1, chars=string.ascii_letters + string.digits):
@@ -131,8 +131,9 @@ if __name__ == "__main__":
                    '奶', '雄', '升', '碃', '编', '典', '袋', '莱', '含', '盛', '济', '蒙', '棋', '端', '腿', '招', '释', '介', '烧', '误',
                    '乾', '坤']
 
-def get_phone_num():
-    for i in range(3):
+def get_phone_num(form):
+    times = form.times.data
+    for i in range(int(times)):
         hds = [{'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'}, \
                {
                    'User-Agent': 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.12 Safari/535.11'}, \
@@ -148,26 +149,27 @@ def get_phone_num():
         data['package'] = list[random.randint(0, 5)]
         collection.insert(data)
         i+=1
+
     return redirect('/')
 @app.route('/', methods=['GET','POST'])
 def main():
     # create form
-    cform = CreateTask(prefix='cform')
-    dform = DeleteTask(prefix='dform')
-    uform = UpdateTask(prefix='uform')
-    reset = ResetTask(prefix='reset')
-    spider = SpiderTask(prefix='spider')
+    cform = CreateNum(prefix='cform')
+    dform = DeleteNum(prefix='dform')
+    uform = UpdateNum(prefix='uform')
+    reset = ResetNum(prefix='reset')
+    spider = SpiderNum(prefix='spider')
     # response
     if cform.validate_on_submit() and cform.create.data:
-        return createTask(cform)
+        return createNum(cform)
     if dform.validate_on_submit() and dform.delete.data:
-        return deleteTask(dform)
+        return deleteNum(dform)
     if uform.validate_on_submit() and uform.update.data:
-        return updateTask(uform)
+        return updateNum(uform)
     if reset.validate_on_submit() and reset.reset.data:
-        return resetTask(reset)
+        return resetNum(reset)
     if spider.validate_on_submit() and spider.spider.data:
-        return get_phone_num()
+        return get_phone_num(spider)
 
     # read all data
     docs = db.tasks.find()

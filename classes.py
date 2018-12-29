@@ -1,22 +1,23 @@
 from flask_wtf import FlaskForm
 from wtforms import TextField, IntegerField, SubmitField
 
-class CreateTask(FlaskForm):
+class CreateNum(FlaskForm):
     number = TextField('号码')
     name = TextField('姓名')
     package = TextField('套餐类型')
     create = SubmitField('新增')
 
-class DeleteTask(FlaskForm):
+class DeleteNum(FlaskForm):
     number = TextField('号码')
     delete = SubmitField('删除')
 
-class UpdateTask(FlaskForm):
+class UpdateNum(FlaskForm):
     number = TextField('号码')
     package = TextField('套餐类型')
     update = SubmitField('更新')
 
-class ResetTask(FlaskForm):
+class ResetNum(FlaskForm):
     reset = SubmitField('执行')
-class SpiderTask(FlaskForm):
+class SpiderNum(FlaskForm):
     spider = SubmitField('执行')
+    times = TextField('条数')
